@@ -15,7 +15,7 @@
     "start": "node lib/start.js"
   },
   "bugs": {
-    "url": "https://github.com/rutaihwa/babu/issues"
+    "url": "https://github.com/rutaihwa/babu-barebones/issues"
   },
   "preferGlobal": true,
   "author": "Rutaihwa",
