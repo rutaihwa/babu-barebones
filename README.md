@@ -1,4 +1,4 @@
-# babu-barebones [![GitHub version](https://badge.fury.io/gh/rutaihwa%2Fbabu-barebones.svg)](http://badge.fury.io/gh/rutaihwa%2Fbabu-barebones) [![Build status](https://travis-ci.org/rutaihwa/babu-barebones.svg?branch=master)](https://travis-ci.org/rutaihwa/babu)
+# babu-barebones [![GitHub version](https://badge.fury.io/gh/rutaihwa%2Fbabu-barebones.svg)](http://badge.fury.io/gh/rutaihwa%2Fbabu-barebones) [![Build status](https://travis-ci.org/rutaihwa/babu-barebones.svg?branch=master)](https://travis-ci.org/rutaihwa/babu-barebones)
 
 A quick way to start developing a node application with hapijs, jade.
 
@@ -19,8 +19,12 @@ $ cd <myApp>
 
     ----- index.js		// The server
     ----- start.js		// The application entry point
-    ----- routes.js		// The application routes
     ----- manifest.js		// The application manifest
+
+###### lib/routes
+
+    ----- index.js		// Looks for routes in the underlying files and adds to the server
+    ----- public.js		// Public routes, gives a templates of adding more routes
 
 ###### views/
 
@@ -46,6 +50,7 @@ $ cd <myApp>
 ###### Others
     
     ------ .gitignore		// files to be ignored by git
+    ------ gulpfile		// Run tasks for the app
     ------ .eslintrc		// Linting rules for js
     ------ .eslintignore	// Files that should be ignored by lint
  

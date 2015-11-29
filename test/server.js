@@ -1,13 +1,12 @@
 'use strict';
 
 // Load modules
-
-var Hapi = require('hapi');
 var Code = require('code');
 var Lab = require('lab');
-var App = require('../lib');
-var Routes = require('../lib/routes');
+var App = require('./vise');
 var Path = require('path');
+var Plugin = require('./vise/plugin');
+var Hapi = require('hapi');
 
 //declare internals
 
@@ -22,11 +21,11 @@ var it = lab.test;
 
 // Tesing the index
 
-describe('/index', function () {
+describe('server', function () {
 
     it('starts server and returns hapi server object', function (done) {
 
-        App.init(internals.manifest, internals.composeOptions, function (err, server) {
+        App.init( function (err, server) {
 
             expect(err).to.not.exist();
             expect(server).to.be.instanceof(Hapi.Server);
@@ -37,18 +36,18 @@ describe('/index', function () {
 
     it('starts server with error, it should stop', function (done) {
 
-        var orig = Routes.register;
-        Routes.register = function (server, options, next) {
+        var orig = Plugin.register;
+        Plugin.register = function (server, options, next) {
 
-            Routes.register = orig;
+            Plugin.register = orig;
             return next(new Error('register plugin failed'));
         };
 
-        Routes.register.attributes = {
+        Plugin.register.attributes = {
             name: 'faulty plugin'
         };
 
-        App.init(internals.manifest, internals.composeOptions, function (err, server) {
+        App.init( function (err, server) {
 
             expect(err).to.exist();
             expect(err.message).to.equal('register plugin failed');
@@ -57,23 +56,3 @@ describe('/index', function () {
         });
     });
 });
-
-internals.manifest = {
-    connections: [
-        {
-            host: 'localhost',
-            port: 0,
-            labels: ['web']
-        }],
-    plugins: {
-        './routes': [{
-            'select': ['web']
-        }],
-        'vision': {},
-        'inert': {}
-    }
-};
-
-internals.composeOptions = {
-    relativeTo: Path.resolve(__dirname, '../lib')
-};
